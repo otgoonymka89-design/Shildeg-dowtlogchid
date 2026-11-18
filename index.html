@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="mn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Төрсөн Өдрийн Мэнд Хүргэе, Анааш аа! 🦒🏐</title>
+
+  <!-- Cyrillic-friendly Google Fonts: Rubik & Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Rubik:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Rubik', 'sans-serif'],
+            sans: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            savanna: {
+              gold: '#F59E0B',
+              amber: '#FBBF24',
+              orange: '#EA580C',
+              deepOrange: '#C2410C',
+            },
+            court: {
+              navy: '#0F172A',
+              slate: '#1E293B',
+              card: '#162033',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Base typography & savanna giraffe-spot geometric background */
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #0F172A;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(245, 158, 11, 0.14) 0%, transparent 42%),
+        radial-gradient(circle at 85% 35%, rgba(234, 88, 12, 0.13) 0%, transparent 45%),
+        radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.11) 0%, transparent 45%),
+        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23F59E0B' fill-opacity='0.045'%3E%3Cpolygon points='22,12 42,16 48,34 32,46 14,36'/%3E%3Cpolygon points='78,20 100,25 104,45 86,54 70,40'/%3E%3Cpolygon points='45,66 68,68 74,88 56,102 36,90'/%3E%3Cpolygon points='92,78 112,82 114,102 96,110 84,96'/%3E%3Cpolygon points='8,74 24,78 26,95 12,102 2,88'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Rubik', sans-serif;
+    }
+
+    /* Screen impact shake on super spike */
+    @keyframes courtShake {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      15% { transform: translate3d(-6px, 5px, 0) rotate(-0.4deg); }
+      30% { transform: translate3d(6px, -4px, 0) rotate(0.4deg); }
+      45% { transform: translate3d(-4px, -3px, 0); }
+      60% { transform: translate3d(4px, 3px, 0); }
+      75% { transform: translate3d(-2px, 1px, 0); }
+    }
+    .animate-court-shake {
+      animation: courtShake 0.48s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    /* Hero Giraffe hover & spike animations */
+    @keyframes mascotFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .mascot-idle {
+      animation: mascotFloat 3.4s ease-in-out infinite;
+    }
+
+    @keyframes mascotSpikeLunge {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      25% { transform: translateY(-26px) scale(1.07) rotate(-6deg); }
+      55% { transform: translateY(-14px) scale(1.08) rotate(8deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    .mascot-spiking {
+      animation: mascotSpikeLunge 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes ballSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .spin-slow {
+      transform-origin: center;
+      animation: ballSpin 9s linear infinite;
+    }
+
+    /* 3D MVP Trading Card Flip & Tilt */
+    .perspective-container {
+      perspective: 1400px;
+    }
+    .mvp-card-inner {
+      position: relative;
+      width: 100%;
+      transition: transform 0.75s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+    .mvp-card-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .mvp-card-face {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .mvp-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Holographic sheen overlay */
+    .holo-sheen {
+      background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.24) 0%,
+        rgba(245, 158, 11, 0.14) 28%,
+        transparent 68%
+      );
+      pointer-events: none;
+    }
+
+    /* Candle flame flicker & smoke */
+    @keyframes flameFlicker {
+      0%, 100% { transform: scale(1) rotate(-1.5deg); opacity: 1; }
+      33% { transform: scale(1.06, 0.95) rotate(2deg); opacity: 0.94; }
+      66% { transform: scale(0.95, 1.07) rotate(-2.5deg); opacity: 1; }
+    }
+    .candle-flame {
+      transform-origin: 200px 92px;
+      animation: flameFlicker 1.1s ease-in-out infinite;
+    }
+
+    @keyframes smokeRise {
+      0% { opacity: 0.85; transform: translateY(0) scale(0.8); }
+      100% { opacity: 0; transform: translateY(-42px) scale(1.7); }
+    }
+    .smoke-puff {
+      animation: smokeRise 1.8s ease-out forwards;
+    }
+
+    /* Pop-in toast badge */
+    @keyframes badgePop {
+      0% { opacity: 0; transform: translateY(14px) scale(0.85); }
+      20% { opacity: 1; transform: translateY(0) scale(1.05); }
+      80% { opacity: 1; transform: translateY(-4px) scale(1); }
+      100% { opacity: 0; transform: translateY(-16px) scale(0.95); }
+    }
+    .animate-badge-pop {
+      animation: badgePop 2.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0F172A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #F59E0B;
+    }
+  </style>
+</head>
+<body id="app-body" class="min-h-screen antialiased selection:bg-savanna-gold selection:text-court-navy">
+
+  <!-- Full-screen Confetti & Fireworks Canvas -->
+  <canvas id="fx-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-50"></canvas>
+
+  <!-- Floating Top Header Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-court-navy/80 border-b border-amber-500/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <!-- Brand / Event Tag -->
+      <a href="#hero" class="flex items-center gap-2.5 group">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-savanna-gold to-savanna-orange flex items-center justify-center text-court-navy font-display font-black text-lg shadow-lg shadow-orange-500/25 group-hover:scale-105 transition-transform">
+          #1
+        </span>
+        <div class="leading-tight">
+          <span class="font-display font-extrabold text-sm sm:text-base tracking-wide text-white block">
+            АНААШ • MVP EDITION
+          </span>
+          <span class="text-[11px] sm:text-xs font-bold text-amber-400">
+            🏐 Төрсөн өдрийн тусгай дугаар
+          </span>
+        </div>
+      </a>
+
+      <!-- Quick Section Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-300">
+        <a href="#mvp-card" class="hover:text-amber-400 transition-colors">MVP Карт</a>
+        <a href="#spike-game" class="hover:text-amber-400 transition-colors">Довтолгооны Тоглоом</a>
+        <a href="#birthday-cake" class="hover:text-amber-400 transition-colors">Бялуу ба Ерөөл</a>
+      </nav>
+
+      <!-- Sound Mute/Unmute Toggle -->
+      <button
+        id="sound-toggle-btn"
+        type="button"
+        aria-label="Дуу асаах эсвэл унтраах"
+        class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-court-slate/90 hover:bg-slate-700 border border-amber-500/30 text-xs sm:text-sm font-bold text-amber-300 shadow-md transition-all active:scale-95"
+      >
+        <span id="sound-icon" class="text-base">🔊</span>
+        <span id="sound-label">Дуу: Асаалттай</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- =========================================================
+         1. HERO CELEBRATION BANNER
+    ========================================================= -->
+    <section id="hero" class="relative overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-amber-500/15">
+      <!-- Subtle Volleyball Court Lines SVG Overlay -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-15" viewBox="0 0 1200 650" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="60" y="45" width="1080" height="560" rx="24" fill="none" stroke="#F59E0B" stroke-width="3" />
+        <line x1="600" y1="45" x2="600" y2="605" stroke="#EA580C" stroke-width="4" stroke-dasharray="14 10" />
+        <line x1="410" y1="45" x2="410" y2="605" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.7" />
+        <line x1="790" y1="45" x2="790" y2="605" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.7" />
+        <circle cx="600" cy="325" r="95" fill="none" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.5" />
+      </svg>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+          <!-- Left Column: Celebration Headlines & CTA -->
+          <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 font-bold text-xs sm:text-sm tracking-wide shadow-sm">
+              <span>🏆</span>
+              <span>ТАЛБАЙН ХААН • ШИЛДЭГ ДОВТЛОГЧ</span>
+            </div>
+
+            <h1 class="font-display font-black text-3xl sm:text-5xl lg:text-[3.4rem] leading-[1.13] tracking-tight text-white drop-shadow-sm">
+              ТӨРСӨН ӨДРИЙН МЭНД ХҮРГЭЕ,
+              <span class="block mt-1 bg-gradient-to-r from-amber-300 via-savanna-gold to-savanna-orange bg-clip-text text-transparent">
+                АНААШ АА! 🦒🏐
+              </span>
+            </h1>
+
+            <p class="text-base sm:text-xl text-slate-200 font-semibold max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Талбайн хамгийн өндөр, хаалт нэвтлэх хүчирхэг довтлогчдоо баярын халуун мэнд хүргэе! Өнөөдөр чиний өдөр — тэнгэрт тулам үсэрч, мөрөөдөл бүхнээ оноо болгоорой!
+            </p>
+
+            <!-- Hero Action Controls -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 relative">
+              <button
+                id="hero-spike-btn"
+                type="button"
+                class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-savanna-gold via-amber-500 to-savanna-orange hover:from-amber-400 hover:to-orange-500 text-court-navy font-display font-black text-base sm:text-lg tracking-wide shadow-xl shadow-orange-600/30 border-b-4 border-orange-800 active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+              >
+                <span>💥 Баярын довтолгоо хийх!</span>
+              </button>
+
+              <a
+                href="#spike-game"
+                class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-court-slate/90 hover:bg-slate-800 text-white font-display font-bold text-sm sm:text-base border border-slate-600/80 hover:border-amber-400/50 transition-all text-center"
+              >
+                🎮 Мини тоглоом тоглох
+              </a>
+
+              <!-- Dynamic Spike Callout Toast Container -->
+              <div id="hero-toast-container" class="pointer-events-none absolute -top-12 left-1/2 lg:left-16 -translate-x-1/2 lg:translate-x-0 z-20"></div>
+            </div>
+
+            <!-- Quick Highlight Stats -->
+            <div class="pt-4 grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0">
+              <div class="rounded-2xl bg-court-slate/70 border border-slate-700/80 p-3 text-center">
+                <div class="font-display font-black text-xl sm:text-2xl text-amber-400">3.45м</div>
+                <div class="text-[11px] sm:text-xs font-bold text-slate-300">Довтолгооны өндөр</div>
+              </div>
+              <div class="rounded-2xl bg-court-slate/70 border border-slate-700/80 p-3 text-center">
+                <div class="font-display font-black text-xl sm:text-2xl text-orange-400">#1</div>
+                <div class="text-[11px] sm:text-xs font-bold text-slate-300">Багийн довтлогч</div>
+              </div>
+              <div class="rounded-2xl bg-court-slate/70 border border-slate-700/80 p-3 text-center">
+                <div class="font-display font-black text-xl sm:text-2xl text-emerald-400">100%</div>
+                <div class="text-[11px] sm:text-xs font-bold text-slate-300">Ялалтын эрч хүч</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Custom Illustrated SVG Giraffe Spiker Mascot -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-[420px]">
+              <!-- Glowing Backdrop Aura -->
+              <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-savanna-orange/30 via-savanna-gold/25 to-amber-300/20 blur-2xl pointer-events-none"></div>
+
+              <div id="hero-mascot-wrapper" class="mascot-idle relative z-10 select-none">
+                <svg id="hero-mascot-svg" viewBox="0 0 440 440" class="w-full h-auto drop-shadow-[0_22px_28px_rgba(0,0,0,0.55)]" role="img" aria-label="Волейбол довтолж буй Анааш сахиус">
+                  <defs>
+                    <linearGradient id="giraffeFur" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FBBF24" />
+                      <stop offset="65%" stop-color="#F59E0B" />
+                      <stop offset="100%" stop-color="#D97706" />
+                    </linearGradient>
+                    <linearGradient id="jerseyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#1E293B" />
+                      <stop offset="100%" stop-color="#0F172A" />
+                    </linearGradient>
+                    <linearGradient id="ballGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FEF08A" />
+                      <stop offset="50%" stop-color="#F59E0B" />
+                      <stop offset="100%" stop-color="#EA580C" />
+                    </linearGradient>
+                    <radialGradient id="spikeBurst" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+                      <stop offset="45%" stop-color="#FBBF24" stop-opacity="0.65" />
+                      <stop offset="100%" stop-color="#EA580C" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+
+                  <!-- Stadium Spotlight Ring -->
+                  <circle cx="220" cy="225" r="185" fill="#1E293B" fill-opacity="0.55" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.25" stroke-dasharray="10 8" />
+
+                  <!-- Volleyball Net (Right Side) -->
+                  <g id="hero-net">
+                    <!-- Net Post -->
+                    <rect x="355" y="135" width="12" height="265" rx="6" fill="#94A3B8" />
+                    <!-- Red/White Antenna -->
+                    <rect x="358" y="82" width="6" height="56" rx="3" fill="#FFFFFF" />
+                    <rect x="358" y="82" width="6" height="14" fill="#EF4444" />
+                    <rect x="358" y="110" width="6" height="14" fill="#EF4444" />
+                    <!-- Net Mesh -->
+                    <g stroke="#CBD5E1" stroke-width="1.5" stroke-opacity="0.55">
+                      <line x1="255" y1="155" x2="358" y2="155" />
+                      <line x1="255" y1="175" x2="358" y2="175" />
+                      <line x1="255" y1="195" x2="358" y2="195" />
+                      <line x1="255" y1="215" x2="358" y2="215" />
+                      <line x1="255" y1="235" x2="358" y2="235" />
+                      <line x1="275" y1="142" x2="275" y2="250" />
+                      <line x1="295" y1="142" x2="295" y2="250" />
+                      <line x1="315" y1="142" x2="315" y2="250" />
+                      <line x1="335" y1="142" x2="335" y2="250" />
+                    </g>
+                    <!-- White Top Net Tape -->
+                    <rect x="250" y="138" width="115" height="11" rx="4" fill="#FFFFFF" />
+                  </g>
+
+                  <!-- Speed & Jump Air Lines -->
+                  <g stroke="#FBBF24" stroke-width="3.5" stroke-linecap="round" opacity="0.75">
+                    <path d="M90 340 Q105 310 95 280" fill="none" />
+                    <path d="M125 365 Q140 330 130 295" fill="none" />
+                    <path d="M195 360 Q210 325 200 295" fill="none" />
+                  </g>
+
+                  <!-- Giraffe Character Leaping Mid-Air -->
+                  <g id="giraffe-body" transform="translate(-12, -8)">
+                    <!-- Tail with tuft -->
+                    <path d="M112 272 Q78 265 72 242" fill="none" stroke="#D97706" stroke-width="6" stroke-linecap="round" />
+                    <ellipse cx="70" cy="238" rx="9" ry="6" transform="rotate(-30 70 238)" fill="#78350F" />
+
+                    <!-- Back Athletic Leg (Bent in dynamic jump) -->
+                    <path d="M132 285 L108 322 L84 308" fill="none" stroke="url(#giraffeFur)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- Sneaker Back -->
+                    <path d="M72 300 L92 314 L82 328 L64 316 Z" fill="#EA580C" stroke="#FFFFFF" stroke-width="2" />
+
+                    <!-- Front Athletic Leg -->
+                    <path d="M168 288 L188 332 L172 362" fill="none" stroke="url(#giraffeFur)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- Knee Pad -->
+                    <rect x="176" y="320" width="22" height="18" rx="7" fill="#0F172A" stroke="#F59E0B" stroke-width="2" />
+                    <!-- Sneaker Front -->
+                    <path d="M162 356 L194 358 L196 372 L160 370 Z" fill="#FFFFFF" stroke="#EA580C" stroke-width="2.5" />
+
+                    <!-- Left Balance Arm -->
+                    <path d="M134 198 L94 224 L76 206" fill="none" stroke="url(#giraffeFur)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- Left Wristband -->
+                    <rect x="74" y="203" width="14" height="11" rx="4" transform="rotate(-35 74 203)" fill="#EA580C" />
+
+                    <!-- Torso with #1 Volleyball Jersey -->
+                    <path d="M126 184 L182 184 L190 278 L118 278 Z" rx="18" fill="url(#jerseyGrad)" stroke="#F59E0B" stroke-width="3" />
+                    <!-- Jersey Side Stripes -->
+                    <path d="M126 186 L136 186 L130 276 L119 276 Z" fill="#EA580C" />
+                    <path d="M172 186 L182 186 L189 276 L178 276 Z" fill="#EA580C" />
+                    <!-- Jersey Number #1 -->
+                    <text x="154" y="246" text-anchor="middle" fill="#FBBF24" font-family="Rubik, sans-serif" font-weight="900" font-size="44">1</text>
+                    <!-- Shorts -->
+                    <path d="M118 272 L190 272 L194 298 L156 298 L154 286 L152 298 L114 298 Z" fill="#0F172A" stroke="#EA580C" stroke-width="2.5" />
+
+                    <!-- Long Giraffe Neck -->
+                    <path d="M142 186 L156 104 L186 108 L174 188 Z" fill="url(#giraffeFur)" />
+                    <!-- Giraffe Neck Spots -->
+                    <polygon points="154,132 167,134 165,147 151,144" fill="#92400E" opacity="0.85" />
+                    <polygon points="163,156 176,158 173,172 160,169" fill="#92400E" opacity="0.85" />
+                    <polygon points="146,162 156,164 154,176 144,174" fill="#92400E" opacity="0.85" />
+
+                    <!-- Right Spiking Arm Raised High -->
+                    <path d="M180 192 L222 142 L262 112" fill="none" stroke="url(#giraffeFur)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- Spiking Wristband -->
+                    <rect x="242" y="114" width="16" height="12" rx="4" transform="rotate(-38 242 114)" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.5" />
+                    <!-- Spiking Hand -->
+                    <circle cx="268" cy="106" r="12" fill="#FBBF24" />
+
+                    <!-- Giraffe Head -->
+                    <g transform="translate(174, 86) rotate(8)">
+                      <!-- Ossicones (Horns) -->
+                      <line x1="-10" y1="-26" x2="-15" y2="-46" stroke="#D97706" stroke-width="6" stroke-linecap="round" />
+                      <circle cx="-15" cy="-48" r="6" fill="#78350F" />
+                      <line x1="10" y1="-26" x2="15" y2="-46" stroke="#D97706" stroke-width="6" stroke-linecap="round" />
+                      <circle cx="15" cy="-48" r="6" fill="#78350F" />
+
+                      <!-- Ears -->
+                      <ellipse cx="-26" cy="-14" rx="13" ry="7" transform="rotate(-25 -26 -14)" fill="#F59E0B" />
+                      <ellipse cx="26" cy="-14" rx="13" ry="7" transform="rotate(25 26 -14)" fill="#F59E0B" />
+
+                      <!-- Main Head Shape -->
+                      <rect x="-24" y="-28" width="48" height="44" rx="20" fill="url(#giraffeFur)" />
+
+                      <!-- Sports Headband -->
+                      <rect x="-25" y="-19" width="50" height="10" rx="4" fill="#EA580C" />
+                      <line x1="-25" y1="-14" x2="25" y2="-14" stroke="#FBBF24" stroke-width="2.5" />
+                      <!-- Headband Flowing Tails -->
+                      <path d="M-24 -16 Q-42 -22 -48 -10" fill="none" stroke="#EA580C" stroke-width="5" stroke-linecap="round" />
+                      <path d="M-24 -12 Q-40 -10 -44 2" fill="none" stroke="#FBBF24" stroke-width="4" stroke-linecap="round" />
+
+                      <!-- Determined Competitive Eyes -->
+                      <circle cx="-9" cy="-2" r="5" fill="#0F172A" />
+                      <circle cx="-7.5" cy="-3.5" r="1.8" fill="#FFFFFF" />
+                      <circle cx="11" cy="-2" r="5" fill="#0F172A" />
+                      <circle cx="12.5" cy="-3.5" r="1.8" fill="#FFFFFF" />
+                      <!-- Eyebrows -->
+                      <line x1="-15" y1="-9" x2="-4" y2="-6" stroke="#78350F" stroke-width="3" stroke-linecap="round" />
+                      <line x1="17" y1="-9" x2="6" y2="-6" stroke="#78350F" stroke-width="3" stroke-linecap="round" />
+
+                      <!-- Snout & Confident Smile -->
+                      <ellipse cx="2" cy="14" rx="22" ry="15" fill="#FDE68A" />
+                      <circle cx="-6" cy="11" r="2.5" fill="#92400E" />
+                      <circle cx="10" cy="11" r="2.5" fill="#92400E" />
+                      <path d="M-8 18 Q2 26 13 17" fill="none" stroke="#78350F" stroke-width="3" stroke-linecap="round" />
+                    </g>
+                  </g>
+
+                  <!-- Glowing Volleyball Being Spiked -->
+                  <g id="hero-volleyball" transform="translate(296, 86)">
+                    <circle cx="0" cy="0" r="46" fill="url(#spikeBurst)" />
+                    <g class="spin-slow">
+                      <circle cx="0" cy="0" r="25" fill="#FBBF24" stroke="#0F172A" stroke-width="2.5" />
+                      <!-- Classic Blue & Yellow Volleyball Panels -->
+                      <path d="M-24 -5 Q0 -16 24 -5" fill="none" stroke="#1D4ED8" stroke-width="6" />
+                      <path d="M-22 10 Q0 0 22 10" fill="none" stroke="#1D4ED8" stroke-width="5" />
+                      <path d="M-6 -24 Q6 0 -6 24" fill="none" stroke="#0F172A" stroke-width="2.2" />
+                      <path d="M8 -23 Q-4 0 8 23" fill="none" stroke="#0F172A" stroke-width="2.2" />
+                      <circle cx="0" cy="0" r="25" fill="none" stroke="#FFFFFF" stroke-width="2" />
+                    </g>
+                    <!-- Impact Shockwave Lines -->
+                    <line x1="28" y1="22" x2="54" y2="44" stroke="#FEF08A" stroke-width="4" stroke-linecap="round" />
+                    <line x1="34" y1="8" x2="64" y2="22" stroke="#EA580C" stroke-width="3.5" stroke-linecap="round" />
+                    <line x1="16" y1="30" x2="36" y2="58" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. INTERACTIVE MVP PLAYER CARD ("Шилдэг Довтлогчийн MVP Карт")
+    ========================================================= -->
+    <section id="mvp-card" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/30 text-orange-300 font-bold text-xs uppercase tracking-wider">
+            ⭐ Албан ёсны тоглогчийн карт
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl text-white">
+            Шилдэг Довтлогчийн <span class="text-savanna-gold">MVP Карт</span>
+          </h2>
+          <p class="text-slate-300 font-semibold text-sm sm:text-base">
+            Карт дээр хулганаа гүйлгэж гялбааг харах эсвэл доорх товчийг дарж дасгалжуулагчийн дүгнэлтийг уншаарай!
+          </p>
+        </div>
+
+        <!-- 3D Interactive Card Wrapper -->
+        <div class="max-w-lg mx-auto perspective-container">
+          <div id="mvp-card-tilt" class="transition-transform duration-200 ease-out">
+            <div id="mvp-card-inner" class="mvp-card-inner">
+
+              <!-- ==================== FRONT OF MVP CARD ==================== -->
+              <div class="mvp-card-face relative rounded-3xl p-1.5 bg-gradient-to-br from-amber-300 via-savanna-gold to-savanna-orange shadow-[0_25px_60px_-15px_rgba(234,88,12,0.45)]">
+                <!-- Holographic Sheen Layer -->
+                <div id="card-holo" class="holo-sheen absolute inset-0 rounded-3xl z-20"></div>
+
+                <div class="relative rounded-[21px] bg-gradient-to-b from-court-slate via-court-navy to-[#0B1120] p-6 sm:p-7 overflow-hidden">
+                  <!-- Top Card Header: Rating & Position -->
+                  <div class="flex items-start justify-between gap-4 border-b border-amber-500/20 pb-4">
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="font-display font-black text-4xl sm:text-5xl bg-gradient-to-b from-amber-200 to-savanna-gold bg-clip-text text-transparent">
+                          99
+                        </span>
+                        <div class="leading-tight">
+                          <span class="block font-display font-black text-sm text-orange-400 tracking-wider">MVP</span>
+                          <span class="block text-xs font-bold text-slate-300">ДОВТЛОГЧ</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Mini Giraffe Emblem Badge -->
+                    <div class="flex items-center gap-2 bg-amber-500/15 border border-amber-400/35 px-3 py-1.5 rounded-2xl">
+                      <span class="text-xl">🦒</span>
+                      <div class="text-right leading-tight">
+                        <span class="block text-[10px] uppercase tracking-wider text-amber-300 font-bold">Хоч</span>
+                        <span class="block font-display font-black text-sm text-white">АНААШ</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Player Avatar & Core Attributes -->
+                  <div class="my-5 flex flex-col sm:flex-row items-center gap-5">
+                    <!-- Custom Circular Portrait SVG -->
+                    <div class="w-28 h-28 sm:w-32 sm:h-32 shrink-0 rounded-2xl bg-gradient-to-br from-amber-500/25 to-orange-600/25 border-2 border-amber-400/50 p-2 flex items-center justify-center relative shadow-inner">
+                      <svg viewBox="0 0 120 120" class="w-full h-full" aria-hidden="true">
+                        <circle cx="60" cy="60" r="52" fill="#1E293B" />
+                        <!-- Neck -->
+                        <path d="M46 108 L52 64 L68 64 L74 108 Z" fill="#F59E0B" />
+                        <polygon points="54,74 63,75 61,85 52,83" fill="#92400E" />
+                        <polygon points="58,90 67,91 65,101 56,99" fill="#92400E" />
+                        <!-- Horns -->
+                        <line x1="48" y1="30" x2="44" y2="16" stroke="#D97706" stroke-width="4" stroke-linecap="round" />
+                        <circle cx="44" cy="15" r="4.5" fill="#78350F" />
+                        <line x1="72" y1="30" x2="76" y2="16" stroke="#D97706" stroke-width="4" stroke-linecap="round" />
+                        <circle cx="76" cy="15" r="4.5" fill="#78350F" />
+                        <!-- Ears -->
+                        <ellipse cx="36" cy="38" rx="9" ry="5" transform="rotate(-20 36 38)" fill="#FBBF24" />
+                        <ellipse cx="84" cy="38" rx="9" ry="5" transform="rotate(20 84 38)" fill="#FBBF24" />
+                        <!-- Head -->
+                        <rect x="40" y="28" width="40" height="38" rx="17" fill="#FBBF24" />
+                        <!-- Headband -->
+                        <rect x="39" y="34" width="42" height="8" rx="3" fill="#EA580C" />
+                        <!-- Eyes -->
+                        <circle cx="51" cy="48" r="3.5" fill="#0F172A" />
+                        <circle cx="69" cy="48" r="3.5" fill="#0F172A" />
+                        <!-- Snout -->
+                        <ellipse cx="60" cy="60" rx="16" ry="11" fill="#FDE68A" />
+                        <path d="M53 62 Q60 68 67 62" fill="none" stroke="#78350F" stroke-width="2.5" stroke-linecap="round" />
+                        <!-- Mini Volleyball Corner -->
+                        <circle cx="94" cy="92" r="15" fill="#FBBF24" stroke="#0F172A" stroke-width="2" />
+                        <path d="M80 90 Q94 83 108 90" fill="none" stroke="#1D4ED8" stroke-width="3.5" />
+                      </svg>
+                    </div>
+
+                    <!-- Bio Details -->
+                    <div class="flex-1 space-y-2.5 text-center sm:text-left w-full">
+                      <div class="bg-slate-800/75 rounded-xl px-3.5 py-2 border border-slate-700/70">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400 block">Байрлал</span>
+                        <span class="font-display font-bold text-sm sm:text-base text-white">Шилдэг Довтлогч (Outside Hitter)</span>
+                      </div>
+                      <div class="bg-slate-800/75 rounded-xl px-3.5 py-2 border border-slate-700/70">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-orange-400 block">Давуу тал</span>
+                        <span class="font-display font-bold text-sm sm:text-base text-white">Тэнгэрт тулам үсрэлт & Аянган цохилт</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Animated Stat Bars -->
+                  <div id="mvp-stats-list" class="space-y-3.5 pt-2 border-t border-slate-800">
+                    <!-- Stat 1 -->
+                    <div>
+                      <div class="flex justify-between text-xs sm:text-sm font-bold mb-1">
+                        <span class="text-slate-200">⚡ Довтолгооны хүч</span>
+                        <span class="font-display font-black text-amber-400">99%</span>
+                      </div>
+                      <div class="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
+                        <div class="stat-bar-fill h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-1000 ease-out" data-target="99%" style="width: 0%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Stat 2 -->
+                    <div>
+                      <div class="flex justify-between text-xs sm:text-sm font-bold mb-1">
+                        <span class="text-slate-200">🦒 Үсрэлтийн өндөр</span>
+                        <span class="font-display font-black text-amber-400">100%</span>
+                      </div>
+                      <div class="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
+                        <div class="stat-bar-fill h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-1000 ease-out" data-target="100%" style="width: 0%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Stat 3 -->
+                    <div>
+                      <div class="flex justify-between text-xs sm:text-sm font-bold mb-1">
+                        <span class="text-slate-200">🔥 Багийн уур амьсгал</span>
+                        <span class="font-display font-black text-orange-400">100%</span>
+                      </div>
+                      <div class="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
+                        <div class="stat-bar-fill h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-400 transition-all duration-1000 ease-out" data-target="100%" style="width: 0%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Stat 4 -->
+                    <div>
+                      <div class="flex justify-between text-xs sm:text-sm font-bold mb-1">
+                        <span class="text-slate-200">💛 Найзархаг сэтгэл</span>
+                        <span class="font-display font-black text-emerald-400 text-base leading-none">∞%</span>
+                      </div>
+                      <div class="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
+                        <div class="stat-bar-fill h-full rounded-full bg-gradient-to-r from-emerald-400 via-amber-400 to-orange-500 transition-all duration-1000 ease-out" data-target="100%" style="width: 0%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Flip Card Button (Front -> Back) -->
+                  <div class="mt-6">
+                    <button
+                      type="button"
+                      onclick="flipMvpCard(true)"
+                      class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-400/50 text-amber-200 font-display font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>🔄 Дасгалжуулагч ба Найзуудын Дүгнэлт харах</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==================== BACK OF MVP CARD (SCOUTING REPORT) ==================== -->
+              <div class="mvp-card-face mvp-card-back absolute inset-0 rounded-3xl p-1.5 bg-gradient-to-br from-savanna-orange via-savanna-gold to-amber-300 shadow-[0_25px_60px_-15px_rgba(245,158,11,0.45)]">
+                <div class="h-full rounded-[21px] bg-gradient-to-b from-court-slate via-court-navy to-[#0B1120] p-6 sm:p-7 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between border-b border-amber-500/25 pb-3.5 mb-4">
+                      <div class="flex items-center gap-2">
+                        <span class="text-2xl">📋</span>
+                        <h3 class="font-display font-black text-lg sm:text-xl text-amber-300">
+                          Дасгалжуулагч ба Найзуудын Дүгнэлт
+                        </h3>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-display font-bold text-xs">
+                        10/10 MVP
+                      </span>
+                    </div>
+
+                    <div class="space-y-3.5 text-sm sm:text-[15px] text-slate-200 leading-relaxed font-semibold">
+                      <p class="bg-slate-800/70 p-3.5 rounded-2xl border-l-4 border-savanna-gold">
+                        <strong class="text-amber-300 block mb-1">⚡ Довтолгооны шинжилгээ:</strong>
+                        “Анааш” торны дээгүүр цойлон гарахад эсрэг багийн ямар ч гурвалсан хаалт хүчин мөхөсддөг. Түүний аянган цохилт бүр багт шийдвэрлэх оноо, үзэгчдэд галзуу эрч хүч бэлэглэдэг!
+                      </p>
+
+                      <p class="bg-slate-800/70 p-3.5 rounded-2xl border-l-4 border-savanna-orange">
+                        <strong class="text-orange-300 block mb-1">🤝 Багийн үнэ цэнэ:</strong>
+                        Зөвхөн талбай дээрх шилдэг довтлогч төдийгүй амьдрал дээр ч хамгийн түшигтэй, инээд хөөр цацруулсан жинхэнэ анд. Түүнтэй нэг багт байх нь үргэлж ялалтын баталгаа!
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="pt-4 space-y-3">
+                    <div class="flex items-center justify-between px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-xs font-bold text-amber-300">
+                      <span>🏅 БАТАЛГААЖУУЛАВ: ТӨРСӨН ӨДРИЙН ЭЗЭН</span>
+                      <span>#1 АНААШ</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onclick="flipMvpCard(false)"
+                      class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-savanna-gold to-savanna-orange text-court-navy font-display font-black text-sm sm:text-base shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>🔄 Үндсэн үзүүлэлт рүү буцах</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. PLAYABLE MINI-GAME: "Анаашны Аянган Довтолгоо"
+    ========================================================= -->
+    <section id="spike-game" class="py-16 sm:py-24 px-4 sm:px-6 bg-court-slate/45 border-y border-amber-500/15">
+      <div class="max-w-4xl mx-auto">
+        <!-- Section Title -->
+        <div class="text-center max-w-2xl mx-auto mb-8 space-y-2.5">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-300 font-bold text-xs uppercase tracking-wider">
+            🎮 Интерактив мини тоглоом
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl text-white">
+            Анаашны <span class="text-savanna-orange">Аянган Довтолгоо</span>
+          </h2>
+          <p class="text-slate-300 font-semibold text-sm sm:text-base">
+            Бөмбөг торны дээд талын <span class="text-amber-300 font-extrabold">АЛТАН БҮС</span>-д хүрэх яг тэр агшинд <strong class="text-white">“ДОВТОЛ!”</strong> товчийг дарж хаалтыг бут ниргээрэй!
+          </p>
+        </div>
+
+        <!-- Scoreboard & Unlocked Title Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+          <div class="rounded-2xl bg-court-navy/90 border border-slate-700/80 p-3.5 text-center">
+            <span class="text-[11px] font-bold uppercase text-slate-400 block">Нийт оноо</span>
+            <span id="game-score" class="font-display font-black text-2xl sm:text-3xl text-amber-400">0</span>
+          </div>
+          <div class="rounded-2xl bg-court-navy/90 border border-slate-700/80 p-3.5 text-center">
+            <span class="text-[11px] font-bold uppercase text-slate-400 block">Цохилтын хурд</span>
+            <span id="game-speed" class="font-display font-black text-2xl sm:text-3xl text-orange-400">-- км/ц</span>
+          </div>
+          <div class="rounded-2xl bg-court-navy/90 border border-slate-700/80 p-3.5 text-center">
+            <span class="text-[11px] font-bold uppercase text-slate-400 block">Дараалал (Combo)</span>
+            <span id="game-combo" class="font-display font-black text-2xl sm:text-3xl text-emerald-400">0x</span>
+          </div>
+          <div class="rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-400/40 p-3.5 text-center flex flex-col justify-center">
+            <span class="text-[11px] font-bold uppercase text-amber-300 block">Одоогийн цол</span>
+            <span id="game-title" class="font-display font-extrabold text-xs sm:text-sm text-white mt-0.5">🌱 Шинэ Довтлогч</span>
+          </div>
+        </div>
+
+        <!-- Game Canvas Container -->
+        <div class="relative rounded-3xl overflow-hidden border-2 border-amber-500/40 bg-court-navy shadow-2xl">
+          <canvas id="spike-canvas" class="block w-full h-[330px] sm:h-[400px] cursor-pointer touch-manipulation"></canvas>
+
+          <!-- Live Feedback Banner inside Game -->
+          <div id="game-feedback-banner" class="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-court-navy/90 border border-amber-400/50 text-amber-300 font-display font-extrabold text-xs sm:text-base shadow-lg whitespace-nowrap transition-all">
+            🏐 Бөмбөг өргөгдөж байна — АЛТАН БҮС-ийг тааруулаарай!
+          </div>
+        </div>
+
+        <!-- Game Action Button Outside Canvas -->
+        <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button
+            id="game-spike-btn"
+            type="button"
+            class="w-full sm:w-auto min-w-[240px] px-10 py-4 rounded-2xl bg-gradient-to-r from-savanna-orange via-orange-500 to-savanna-gold hover:brightness-110 text-court-navy font-display font-black text-xl tracking-wider shadow-xl shadow-orange-600/30 border-b-4 border-orange-900 active:border-b-0 active:translate-y-1 transition-all cursor-pointer select-none"
+          >
+            ⚡ ДОВТОЛ!
+          </button>
+          <span class="text-xs font-bold text-slate-400">
+            (Компьютер дээр <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-600 text-amber-300">Space</kbd> товч дарж болно)
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. INTERACTIVE BIRTHDAY CAKE & HEARTFELT GREETING
+    ========================================================= -->
+    <section id="birthday-cake" class="py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto">
+        <!-- Section Title -->
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-2.5">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/35 text-orange-300 font-bold text-xs uppercase tracking-wider">
+            🎂 Төрсөн өдрийн оргил мөч
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl text-white">
+            Хүслээ шивнээд <span class="text-savanna-gold">лаагаа үлээгээрэй</span>
+          </h2>
+          <p class="text-slate-300 font-semibold text-sm sm:text-base">
+            Хамгийн том мөрөөдлөө дотроо бодоод доорх товчийг дараарай!
+          </p>
+        </div>
+
+        <!-- Interactive Cake Card -->
+        <div class="rounded-3xl bg-gradient-to-b from-court-slate/95 to-court-navy border border-amber-500/30 p-6 sm:p-10 shadow-2xl text-center relative overflow-hidden">
+
+          <!-- Optional Age Badge (Shown if customized) -->
+          <div id="cake-age-badge" class="hidden mb-3 inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 font-display font-black text-xs sm:text-sm">
+            <span>🎉</span>
+            <span id="cake-age-text">22 НАСНЫ ОЙН БАЯР</span>
+          </div>
+
+          <!-- Custom Illustrated SVG Birthday Cake -->
+          <div class="max-w-[340px] mx-auto my-2 select-none">
+            <svg id="birthday-cake-svg" viewBox="0 0 400 320" class="w-full h-auto drop-shadow-[0_18px_24px_rgba(0,0,0,0.5)]" role="img" aria-label="Волейболын чимэглэлтэй төрсөн өдрийн бялуу">
+              <defs>
+                <radialGradient id="flameHalo" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.85" />
+                  <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.3" />
+                  <stop offset="100%" stop-color="#EA580C" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="cakeTierTop" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#F59E0B" />
+                  <stop offset="50%" stop-color="#FBBF24" />
+                  <stop offset="100%" stop-color="#D97706" />
+                </linearGradient>
+                <linearGradient id="cakeTierBottom" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#C2410C" />
+                  <stop offset="50%" stop-color="#EA580C" />
+                  <stop offset="100%" stop-color="#9A3412" />
+                </linearGradient>
+              </defs>
+
+              <!-- Candle Warm Halo -->
+              <circle id="candle-halo" cx="200" cy="72" r="58" fill="url(#flameHalo)" class="transition-opacity duration-500" />
+
+              <!-- Smoke Wisps (Hidden until candle blown out) -->
+              <g id="candle-smoke" class="hidden">
+                <circle cx="200" cy="82" r="6" fill="#CBD5E1" class="smoke-puff" />
+                <circle cx="194" cy="70" r="8" fill="#E2E8F0" class="smoke-puff" style="animation-delay: 0.2s;" />
+                <circle cx="206" cy="58" r="7" fill="#94A3B8" class="smoke-puff" style="animation-delay: 0.4s;" />
+              </g>
+
+              <!-- Candle Stick -->
+              <rect x="192" y="94" width="16" height="44" rx="5" fill="#FFFFFF" stroke="#EA580C" stroke-width="2" />
+              <line x1="192" y1="106" x2="208" y2="112" stroke="#EA580C" stroke-width="4" />
+              <line x1="192" y1="120" x2="208" y2="126" stroke="#EA580C" stroke-width="4" />
+              <!-- Wick -->
+              <line x1="200" y1="94" x2="200" y2="86" stroke="#334155" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Glowing Animated Flame -->
+              <g id="candle-flame-group" class="candle-flame transition-opacity duration-300">
+                <path d="M200 44 C214 64 214 82 200 88 C186 82 186 64 200 44 Z" fill="#F59E0B" />
+                <path d="M200 54 C208 67 208 79 200 84 C192 79 192 67 200 54 Z" fill="#FEF08A" />
+                <ellipse cx="200" cy="75" rx="3.5" ry="6" fill="#FFFFFF" />
+              </g>
+
+              <!-- Cake Stand / Platter -->
+              <ellipse cx="200" cy="276" rx="158" ry="18" fill="#334155" stroke="#94A3B8" stroke-width="2.5" />
+              <rect x="172" y="282" width="56" height="18" rx="6" fill="#475569" />
+              <ellipse cx="200" cy="302" rx="74" ry="10" fill="#64748B" />
+
+              <!-- Bottom Cake Tier -->
+              <rect x="76" y="196" width="248" height="76" rx="18" fill="url(#cakeTierBottom)" />
+              <!-- Cream Frosting Drips (Bottom Tier) -->
+              <path d="M76 204 Q92 224 108 206 Q124 230 140 206 Q156 226 172 206 Q188 232 204 206 Q220 226 236 206 Q252 230 268 206 Q284 224 300 206 Q312 218 324 204 L324 196 L76 196 Z" fill="#FFFBEB" />
+
+              <!-- Volleyball Motifs on Bottom Tier -->
+              <g transform="translate(132, 244)">
+                <circle cx="0" cy="0" r="16" fill="#FBBF24" stroke="#0F172A" stroke-width="2" />
+                <path d="M-15 -3 Q0 -10 15 -3" fill="none" stroke="#1D4ED8" stroke-width="3.5" />
+                <path d="M-14 6 Q0 0 14 6" fill="none" stroke="#1D4ED8" stroke-width="3" />
+              </g>
+              <g transform="translate(200, 244)">
+                <circle cx="0" cy="0" r="18" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" />
+                <path d="M-17 -3 Q0 -11 17 -3" fill="none" stroke="#EA580C" stroke-width="4" />
+                <path d="M-16 7 Q0 0 16 7" fill="none" stroke="#F59E0B" stroke-width="3.5" />
+              </g>
+              <g transform="translate(268, 244)">
+                <circle cx="0" cy="0" r="16" fill="#FBBF24" stroke="#0F172A" stroke-width="2" />
+                <path d="M-15 -3 Q0 -10 15 -3" fill="none" stroke="#1D4ED8" stroke-width="3.5" />
+                <path d="M-14 6 Q0 0 14 6" fill="none" stroke="#1D4ED8" stroke-width="3" />
+              </g>
+
+              <!-- Top Cake Tier -->
+              <rect x="114" y="136" width="172" height="62" rx="16" fill="url(#cakeTierTop)" />
+              <!-- Cream Frosting Drips (Top Tier) -->
+              <path d="M114 144 Q130 162 146 146 Q162 166 178 146 Q194 162 210 146 Q226 166 242 146 Q258 162 274 146 L286 144 L286 136 L114 136 Z" fill="#FFFFFF" />
+              <!-- Decorative Giraffe Spots & Gold Stars on Top Tier -->
+              <polygon points="145,170 157,172 155,183 143,181" fill="#92400E" opacity="0.7" />
+              <polygon points="242,168 255,170 253,182 240,180" fill="#92400E" opacity="0.7" />
+              <text x="200" y="183" text-anchor="middle" fill="#0F172A" font-family="Rubik, sans-serif" font-weight="900" font-size="16">MVP #1</text>
+            </svg>
+          </div>
+
+          <!-- Blow Candle Action Button -->
+          <div class="mt-2 mb-6">
+            <button
+              id="blow-candle-btn"
+              type="button"
+              class="px-8 py-4 rounded-2xl bg-gradient-to-r from-savanna-gold via-amber-400 to-savanna-orange hover:brightness-110 text-court-navy font-display font-black text-base sm:text-lg shadow-xl shadow-amber-500/25 border-b-4 border-orange-800 active:border-b-0 active:translate-y-1 transition-all inline-flex items-center gap-2.5 cursor-pointer"
+            >
+              <span>🎂 Лааг үлээх</span>
+            </button>
+          </div>
+
+          <!-- Heartfelt Greeting Card (Unfolds / Highlights when candle is blown out) -->
+          <div
+            id="greeting-card"
+            class="max-w-2xl mx-auto rounded-2xl bg-court-navy/90 border-2 border-amber-500/30 p-6 sm:p-8 text-left transition-all duration-700"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-800">
+              <h3 id="greeting-recipient-title" class="font-display font-black text-xl sm:text-2xl text-amber-300">
+                Хүндэт АНААШ-даа төрсөн өдрийн мэнд хүргэе! 🦒✨
+              </h3>
+              <span id="wish-status-pill" class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-xs font-bold">
+                🕯️ Хүслээ шивнээрэй
+              </span>
+            </div>
+
+            <p id="greeting-body-text" class="text-slate-100 text-base sm:text-lg leading-relaxed font-semibold whitespace-pre-line">
+              Талбай дээр үргэлж хамгийн өндөрт цойлж, хаалт бүрийг аянган цохилтоор нэвтэлдэг шилдэг довтлогч найздаа төрсөн өдрийн халуун мэндийг хүргэе!
+
+              Амьдралын чинь зам дардан, бэртэл гэмтэлгүй, ялалт амжилтаар дүүрэн байж, зорьсон мөрөөдөл бүхэн чинь яг л чиний довтолгоо шиг оновчтой, хүчирхэг биелэх болтугай. Чи бол манай багийн төдийгүй бидний нөхөрлөлийн жинхэнэ MVP! 🏐🏆🔥
+            </p>
+
+            <div class="mt-5 pt-4 border-t border-slate-800/90 flex items-center justify-between text-xs sm:text-sm font-bold text-amber-400">
+              <span>💛 Чиний анд найзуудаас</span>
+              <span>#АНААШ_MVP</span>
+            </div>
+          </div>
+
+          <!-- Collapsible Customizer Panel ("Мэндчилгээний үг өөрчлөх / Нэр нэмэх") -->
+          <div class="max-w-2xl mx-auto mt-6 text-left">
+            <button
+              id="toggle-customizer-btn"
+              type="button"
+              aria-expanded="false"
+              class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-600/80 text-xs sm:text-sm font-bold text-slate-200 flex items-center justify-center sm:justify-start gap-2 transition-colors cursor-pointer"
+            >
+              <span>✏️ Мэндчилгээний үг өөрчлөх / Нэр нэмэх</span>
+              <span id="customizer-chevron" class="transition-transform duration-300">▼</span>
+            </button>
+
+            <div id="customizer-panel" class="hidden mt-3 rounded-2xl bg-slate-900/95 border border-amber-500/30 p-5 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="input-real-name" class="block text-xs font-bold text-amber-300 mb-1.5">
+                    Найзын жинхэнэ нэр (заавал биш)
+                  </label>
+                  <input
+                    id="input-real-name"
+                    type="text"
+                    placeholder="Жишээ нь: Бат-Эрдэнэ"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-court-slate border border-slate-600 focus:border-amber-400 focus:outline-none text-sm text-white font-semibold"
+                  />
+                </div>
+                <div>
+                  <label for="input-age" class="block text-xs font-bold text-amber-300 mb-1.5">
+                    Нас (заавал биш)
+                  </label>
+                  <input
+                    id="input-age"
+                    type="number"
+                    min="1"
+                    max="120"
+                    placeholder="Жишээ нь: 22"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-court-slate border border-slate-600 focus:border-amber-400 focus:outline-none text-sm text-white font-semibold"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="input-custom-msg" class="block text-xs font-bold text-amber-300 mb-1.5">
+                  Мэндчилгээний үг (шууд шинэчлэгдэнэ)
+                </label>
+                <textarea
+                  id="input-custom-msg"
+                  rows="4"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-court-slate border border-slate-600 focus:border-amber-400 focus:outline-none text-sm text-white font-semibold leading-relaxed"
+                ></textarea>
+              </div>
+
+              <div class="flex justify-end">
+                <button
+                  id="reset-customizer-btn"
+                  type="button"
+                  class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 border border-slate-600 transition-colors cursor-pointer"
+                >
+                  ↺ Анхны мэндчилгээ сэргээх
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/90 py-8 px-4 text-center text-xs sm:text-sm text-slate-400 font-semibold">
+    <p>
+      🦒🏐 Шилдэг довтлогч <span class="text-amber-400 font-bold">АНААШ</span>-д зориулан хайр ба эрч хүчээр бүтээв. Төрсөн өдрийн мэнд хүргэе!
+    </p>
+  </footer>
+
+  <!-- =========================================================
+       APPLICATION JAVASCRIPT (Audio, Confetti/Fireworks, Card, Mini-Game, Cake)
+  ========================================================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------------------------------------------------------
+         1. WEB AUDIO API SYNTHESIZER (Zero external audio URLs)
+      --------------------------------------------------------- */
+      const SoundFX = {
+        ctx: null,
+        muted: false,
+
+        ensureContext() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+              this.ctx = new AudioCtx();
+            }
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+          }
+        },
+
+        toggleMute() {
+          this.muted = !this.muted;
+          const icon = document.getElementById('sound-icon');
+          const label = document.getElementById('sound-label');
+          if (icon && label) {
+            icon.textContent = this.muted ? '🔇' : '🔊';
+            label.textContent = this.muted ? 'Дуу: Хаалттай' : 'Дуу: Асаалттай';
+          }
+          if (!this.muted) {
+            this.ensureContext();
+            this.playPop(520);
+          }
+        },
+
+        playPop(freq = 440) {
+          if (this.muted) return;
+          this.ensureContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.4, now + 0.09);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        },
+
+        playSpike(isPerfect = true) {
+          if (this.muted) return;
+          this.ensureContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Punchy volleyball slap impact
+          const punchOsc = this.ctx.createOscillator();
+          const punchGain = this.ctx.createGain();
+          punchOsc.type = 'triangle';
+          punchOsc.frequency.setValueAtTime(isPerfect ? 240 : 185, now);
+          punchOsc.frequency.exponentialRampToValueAtTime(48, now + 0.18);
+          punchGain.gain.setValueAtTime(0.35, now);
+          punchGain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          punchOsc.connect(punchGain);
+          punchGain.connect(this.ctx.destination);
+          punchOsc.start(now);
+          punchOsc.stop(now + 0.21);
+
+          // Celebratory ascending chime notes
+          const notes = isPerfect ? [523.25, 659.25, 783.99, 1046.5] : [440, 554.37, 659.25];
+          notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            const start = now + 0.05 + idx * 0.065;
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, start);
+            gain.gain.setValueAtTime(0.14, start);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.26);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(start);
+            osc.stop(start + 0.28);
+          });
+        },
+
+        playMiss() {
+          if (this.muted) return;
+          this.ensureContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(210, now);
+          osc.frequency.exponentialRampToValueAtTime(110, now + 0.22);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        },
+
+        playCardFlip() {
+          if (this.muted) return;
+          this.ensureContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(300, now);
+          osc.frequency.exponentialRampToValueAtTime(620, now + 0.14);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.17);
+        },
+
+        playBirthdayCelebration() {
+          if (this.muted) return;
+          this.ensureContext();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Happy Birthday opening motif ("Happy Birthday to You")
+          const melody = [
+            { f: 392.00, t: 0.00, d: 0.22 }, // G4
+            { f: 392.00, t: 0.25, d: 0.22 }, // G4
+            { f: 440.00, t: 0.50, d: 0.42 }, // A4
+            { f: 392.00, t: 0.96, d: 0.42 }, // G4
+            { f: 523.25, t: 1.42, d: 0.42 }, // C5
+            { f: 493.88, t: 1.88, d: 0.72 }  // B4
+          ];
+
+          melody.forEach((n) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(n.f, now + n.t);
+            gain.gain.setValueAtTime(0.18, now + n.t);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + n.t);
+            osc.stop(now + n.t + n.d + 0.02);
+          });
+        }
+      };
+
+      document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+        SoundFX.toggleMute();
+      });
+
+      /* ---------------------------------------------------------
+         2. CONFETTI & FIREWORKS PARTICLE ENGINE (#fx-canvas)
+      --------------------------------------------------------- */
+      const fxCanvas = document.getElementById('fx-canvas');
+      const fxCtx = fxCanvas.getContext('2d');
+      let fxParticles = [];
+      const FX_COLORS = ['#F59E0B', '#FBBF24', '#EA580C', '#FFFFFF', '#38BDF8', '#34D399'];
+
+      function resizeFxCanvas() {
+        fxCanvas.width = window.innerWidth;
+        fxCanvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeFxCanvas);
+      resizeFxCanvas();
+
+      // Gentle ambient confetti particles
+      function initAmbientConfetti() {
+        for (let i = 0; i < 28; i++) {
+          fxParticles.push({
+            x: Math.random() * fxCanvas.width,
+            y: Math.random() * fxCanvas.height,
+            vx: (Math.random() - 0.5) * 0.9,
+            vy: 0.6 + Math.random() * 1.1,
+            size: 5 + Math.random() * 5,
+            color: FX_COLORS[Math.floor(Math.random() * FX_COLORS.length)],
+            rot: Math.random() * Math.PI * 2,
+            vRot: (Math.random() - 0.5) * 0.06,
+            ambient: true,
+            alpha: 0.65
+          });
+        }
+      }
+
+      function spawnConfettiBurst(originX, originY, count = 65) {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 4 + Math.random() * 10;
+          fxParticles.push({
+            x: originX,
+            y: originY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 3.5,
+            size: 6 + Math.random() * 6,
+            color: FX_COLORS[Math.floor(Math.random() * FX_COLORS.length)],
+            rot: Math.random() * Math.PI * 2,
+            vRot: (Math.random() - 0.5) * 0.18,
+            ambient: false,
+            alpha: 1,
+            gravity: 0.24,
+            decay: 0.012 + Math.random() * 0.008
+          });
+        }
+      }
+
+      function launchFireworksShow() {
+        const bursts = 6;
+        for (let b = 0; b < bursts; b++) {
+          setTimeout(() => {
+            const x = fxCanvas.width * (0.18 + Math.random() * 0.64);
+            const y = fxCanvas.height * (0.16 + Math.random() * 0.36);
+            spawnConfettiBurst(x, y, 75);
+            SoundFX.playPop(360 + b * 75);
+          }, b * 360);
+        }
+      }
+
+      function updateAndDrawFx() {
+        fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+
+        for (let i = fxParticles.length - 1; i >= 0; i--) {
+          const p = fxParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vRot;
+
+          if (p.ambient) {
+            if (p.y > fxCanvas.height + 15) {
+              p.y = -15;
+              p.x = Math.random() * fxCanvas.width;
+            }
+            if (p.x < -15) p.x = fxCanvas.width + 15;
+            if (p.x > fxCanvas.width + 15) p.x = -15;
+          } else {
+            p.vy += p.gravity;
+            p.vx *= 0.985;
+            p.alpha -= p.decay;
+            if (p.alpha <= 0) {
+              fxParticles.splice(i, 1);
+              continue;
+            }
+          }
+
+          fxCtx.save();
+          fxCtx.globalAlpha = Math.max(0, p.alpha);
+          fxCtx.translate(p.x, p.y);
+          fxCtx.rotate(p.rot);
+          fxCtx.fillStyle = p.color;
+          fxCtx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+          fxCtx.restore();
+        }
+
+        requestAnimationFrame(updateAndDrawFx);
+      }
+
+      /* ---------------------------------------------------------
+         3. HERO SPIKE CELEBRATION BUTTON
+      --------------------------------------------------------- */
+      const heroSpikeBtn = document.getElementById('hero-spike-btn');
+      const heroMascotWrapper = document.getElementById('hero-mascot-wrapper');
+      const heroToastContainer = document.getElementById('hero-toast-container');
+      const appBody = document.getElementById('app-body');
+
+      const HERO_CALLOUTS = [
+        '💥 БАМ! 128 КМ/Ц АЯНГАН ДОВТОЛГОО!',
+        '🔥 ХААЛТ БУТ НИРГЭЛЭЭ! +1 MVP ОНОО!',
+        '🦒 ТЭНГЭРТ ТУЛАМ ҮСРЭЛТ! ГАЙХАЛТАЙ!',
+        '⚡ АНААШ ЗОГСОШГҮЙ БАЙНА! ТӨРСӨН ӨДРИЙН МЭНД!'
+      ];
+      let heroCalloutIdx = 0;
+
+      heroSpikeBtn.addEventListener('click', (e) => {
+        SoundFX.playSpike(true);
+
+        // Trigger Mascot Lunge Animation
+        heroMascotWrapper.classList.remove('mascot-spiking');
+        void heroMascotWrapper.offsetWidth; // Force reflow
+        heroMascotWrapper.classList.add('mascot-spiking');
+
+        // Screen subtle impact shake
+        appBody.classList.remove('animate-court-shake');
+        void appBody.offsetWidth;
+        appBody.classList.add('animate-court-shake');
+
+        // Burst confetti from button & mascot
+        const rect = heroSpikeBtn.getBoundingClientRect();
+        spawnConfettiBurst(rect.left + rect.width / 2, rect.top, 70);
+        spawnConfettiBurst(window.innerWidth * 0.68, window.innerHeight * 0.35, 55);
+
+        // Show enthusiastic floating callout
+        const toast = document.createElement('div');
+        toast.className = 'animate-badge-pop px-4 py-2 rounded-full bg-court-navy/95 border-2 border-amber-400 text-amber-300 font-display font-black text-xs sm:text-sm shadow-xl whitespace-nowrap';
+        toast.textContent = HERO_CALLOUTS[heroCalloutIdx % HERO_CALLOUTS.length];
+        heroCalloutIdx++;
+        heroToastContainer.innerHTML = '';
+        heroToastContainer.appendChild(toast);
+      });
+
+      /* ---------------------------------------------------------
+         4. INTERACTIVE 3D MVP PLAYER CARD
+      --------------------------------------------------------- */
+      const mvpCardTilt = document.getElementById('mvp-card-tilt');
+      const mvpCardInner = document.getElementById('mvp-card-inner');
+      const cardHolo = document.getElementById('card-holo');
+      let isCardFlipped = false;
+
+      window.flipMvpCard = function (toBack) {
+        isCardFlipped = toBack;
+        SoundFX.playCardFlip();
+        if (isCardFlipped) {
+          mvpCardInner.classList.add('is-flipped');
+        } else {
+          mvpCardInner.classList.remove('is-flipped');
+          animateStatBars();
+        }
+      };
+
+      // 3D Tilt on Mouse / Touch Move
+      mvpCardTilt.addEventListener('mousemove', (e) => {
+        if (isCardFlipped) return;
+        const rect = mvpCardTilt.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -7;
+        const rotateY = ((x - centerX) / centerX) * 7;
+
+        mvpCardTilt.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        cardHolo.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+        cardHolo.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+      });
+
+      mvpCardTilt.addEventListener('mouseleave', () => {
+        mvpCardTilt.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+
+      // Animate Stat Bars smoothly when scrolled into view
+      function animateStatBars() {
+        const bars = document.querySelectorAll('.stat-bar-fill');
+        bars.forEach((bar) => {
+          bar.style.width = '0%';
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              bar.style.width = bar.getAttribute('data-target');
+            }, 80);
+          });
+        });
+      }
+
+      const statsObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateStatBars();
+              statsObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      const statsSection = document.getElementById('mvp-stats-list');
+      if (statsSection) statsObserver.observe(statsSection);
+
+      /* ---------------------------------------------------------
+         5. PLAYABLE MINI-GAME: "Анаашны Аянган Довтолгоо"
+      --------------------------------------------------------- */
+      const gameCanvas = document.getElementById('spike-canvas');
+      const gCtx = gameCanvas.getContext('2d');
+      const gameScoreEl = document.getElementById('game-score');
+      const gameSpeedEl = document.getElementById('game-speed');
+      const gameComboEl = document.getElementById('game-combo');
+      const gameTitleEl = document.getElementById('game-title');
+      const gameFeedbackBanner = document.getElementById('game-feedback-banner');
+      const gameSpikeBtn = document.getElementById('game-spike-btn');
+
+      const gameState = {
+        score: 0,
+        combo: 0,
+        phase: 'SETTING', // 'SETTING' | 'SPIKED' | 'MISSED'
+        cycleT: 0,        // 0..1 progress of ball toss arc
+        speedFactor: 0.0115,
+        giraffeJumpY: 0,
+        ballX: 0,
+        ballY: 0,
+        spikedBallVX: 0,
+        spikedBallVY: 0,
+        spikedBallX: 0,
+        spikedBallY: 0,
+        flashAlpha: 0,
+        impactRing: null
+      };
+
+      function resizeGameCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = gameCanvas.getBoundingClientRect();
+        gameCanvas.width = rect.width * dpr;
+        gameCanvas.height = rect.height * dpr;
+        gCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener('resize', resizeGameCanvas);
+
+      function updateGameHud(lastSpeedText) {
+        gameScoreEl.textContent = gameState.score;
+        gameComboEl.textContent = `${gameState.combo}x`;
+        if (lastSpeedText) {
+          gameSpeedEl.textContent = lastSpeedText;
+        }
+
+        // Unlock birthday titles based on score
+        if (gameState.score >= 450) {
+          gameTitleEl.textContent = '👑 Төрсөн Өдрийн MVP!';
+        } else if (gameState.score >= 250) {
+          gameTitleEl.textContent = '⚡ Шилдэг Довтлогч!';
+        } else if (gameState.score >= 100) {
+          gameTitleEl.textContent = '🔥 Хаалт Эвдэгч!';
+        } else {
+          gameTitleEl.textContent = '🌱 Шинэ Довтлогч';
+        }
+      }
+
+      function triggerGameSpike() {
+        if (gameState.phase !== 'SETTING') return;
+
+        // Sweet spot is around cycleT = 0.52 .. 0.72 (ball right above the net peak)
+        const distFromSweetSpot = Math.abs(gameState.cycleT - 0.62);
+
+        if (distFromSweetSpot <= 0.11) {
+          // PERFECT THUNDER SPIKE!
+          gameState.phase = 'SPIKED';
+          gameState.combo += 1;
+          const speedKmh = Math.floor(118 + Math.random() * 16 + Math.min(gameState.combo * 2, 12));
+          const pointsEarned = 100 * gameState.combo;
+          gameState.score += pointsEarned;
+
+          gameState.spikedBallX = gameState.ballX;
+          gameState.spikedBallY = gameState.ballY;
+          gameState.spikedBallVX = 11.5;
+          gameState.spikedBallVY = 8.2;
+          gameState.flashAlpha = 0.45;
+          gameState.impactRing = { x: gameState.ballX, y: gameState.ballY, r: 12, alpha: 1 };
+
+          // Slightly increase challenge speed up to a fun cap
+          gameState.speedFactor = Math.min(0.0175, gameState.speedFactor + 0.0005);
+
+          SoundFX.playSpike(true);
+          updateGameHud(`${speedKmh} км/ц!`);
+          gameFeedbackBanner.textContent = `💥 ТӨГС АЯНГАН ЦОХИЛТ! ${speedKmh} км/ц (+${pointsEarned} оноо)`;
+          gameFeedbackBanner.className = 'pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-amber-500 text-court-navy font-display font-black text-xs sm:text-base shadow-xl whitespace-nowrap';
+
+          const rect = gameCanvas.getBoundingClientRect();
+          spawnConfettiBurst(rect.left + rect.width * 0.65, rect.top + rect.height * 0.45, 45);
+        } else if (distFromSweetSpot <= 0.21) {
+          // GOOD SPIKE!
+          gameState.phase = 'SPIKED';
+          gameState.combo += 1;
+          const speedKmh = Math.floor(94 + Math.random() * 18);
+          const pointsEarned = 60 * gameState.combo;
+          gameState.score += pointsEarned;
+
+          gameState.spikedBallX = gameState.ballX;
+          gameState.spikedBallY = gameState.ballY;
+          gameState.spikedBallVX = 9.5;
+          gameState.spikedBallVY = 6.2;
+          gameState.impactRing = { x: gameState.ballX, y: gameState.ballY, r: 10, alpha: 0.8 };
+
+          SoundFX.playSpike(false);
+          updateGameHud(`${speedKmh} км/ц`);
+          gameFeedbackBanner.textContent = `🔥 САЙН ДОВТОЛГОО! ${speedKmh} км/ц (+${pointsEarned} оноо)`;
+          gameFeedbackBanner.className = 'pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-court-navy/95 border border-emerald-400 text-emerald-300 font-display font-extrabold text-xs sm:text-base shadow-lg whitespace-nowrap';
+        } else {
+          // TOO EARLY OR TOO LATE
+          gameState.phase = 'MISSED';
+          gameState.combo = 0;
+          gameState.spikedBallX = gameState.ballX;
+          gameState.spikedBallY = gameState.ballY;
+          gameState.spikedBallVX = gameState.cycleT < 0.62 ? 3.5 : 6.5;
+          gameState.spikedBallVY = gameState.cycleT < 0.62 ? 5.5 : -3.5;
+
+          SoundFX.playMiss();
+          updateGameHud('-- км/ц');
+          const reason = gameState.cycleT < 0.62 ? 'Хэт эрт үсэрлээ!' : 'Хэт оройтлоо!';
+          gameFeedbackBanner.textContent = `😅 ${reason} Алтан бүсийг тааруулаарай!`;
+          gameFeedbackBanner.className = 'pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-court-navy/95 border border-rose-400/60 text-rose-300 font-display font-bold text-xs sm:text-base shadow-lg whitespace-nowrap';
+        }
+      }
+
+      function resetGameRound() {
+        gameState.phase = 'SETTING';
+        gameState.cycleT = 0;
+        gameState.giraffeJumpY = 0;
+        gameFeedbackBanner.textContent = '🏐 Бөмбөг өргөгдөж байна — АЛТАН БҮС-ийг тааруулаарай!';
+        gameFeedbackBanner.className = 'pointer-events-none absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-court-navy/90 border border-amber-400/50 text-amber-300 font-display font-extrabold text-xs sm:text-base shadow-lg whitespace-nowrap';
+      }
+
+      gameSpikeBtn.addEventListener('click', triggerGameSpike);
+      gameCanvas.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        triggerGameSpike();
+      });
+
+      // Spacebar shortcut (ignored when typing in inputs)
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+          const activeTag = document.activeElement ? document.activeElement.tagName : '';
+          if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+          e.preventDefault();
+          triggerGameSpike();
+        }
+      });
+
+      function drawGameFrame() {
+        const w = gameCanvas.getBoundingClientRect().width;
+        const h = gameCanvas.getBoundingClientRect().height;
+        const floorY = h - 46;
+        const netX = w * 0.54;
+        const netTopY = floorY - 125;
+
+        // 1. Savanna Sunset Arena Sky Gradient
+        const skyGrad = gCtx.createLinearGradient(0, 0, 0, floorY);
+        skyGrad.addColorStop(0, '#0F172A');
+        skyGrad.addColorStop(0.55, '#1E293B');
+        skyGrad.addColorStop(1, '#451A03');
+        gCtx.fillStyle = skyGrad;
+        gCtx.fillRect(0, 0, w, floorY);
+
+        // Warm Sunset Glow behind net
+        const sunGrad = gCtx.createRadialGradient(netX, floorY - 40, 10, netX, floorY - 40, w * 0.45);
+        sunGrad.addColorStop(0, 'rgba(245, 158, 11, 0.25)');
+        sunGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        gCtx.fillStyle = sunGrad;
+        gCtx.fillRect(0, 0, w, floorY);
+
+        // 2. Volleyball Court Floor
+        gCtx.fillStyle = '#EA580C';
+        gCtx.fillRect(0, floorY, w, h - floorY);
+        gCtx.fillStyle = '#F59E0B';
+        gCtx.fillRect(0, floorY, w, 6);
+
+        // Court 3-meter & center lines
+        gCtx.strokeStyle = 'rgba(255,255,255,0.65)';
+        gCtx.lineWidth = 2.5;
+        gCtx.beginPath();
+        gCtx.moveTo(netX, floorY);
+        gCtx.lineTo(netX, h);
+        gCtx.moveTo(w * 0.30, floorY);
+        gCtx.lineTo(w * 0.24, h);
+        gCtx.moveTo(w * 0.78, floorY);
+        gCtx.lineTo(w * 0.84, h);
+        gCtx.stroke();
+
+        // 3. Sweet Spot Target Zone Indicator above the Net
+        const targetX = netX - 24;
+        const targetY = netTopY - 48;
+
+        // Pulsing Target Ring
+        const pulse = 1 + Math.sin(Date.now() * 0.008) * 0.08;
+        gCtx.save();
+        gCtx.strokeStyle = 'rgba(251, 191, 36, 0.85)';
+        gCtx.lineWidth = 3;
+        gCtx.setLineDash([6, 4]);
+        gCtx.beginPath();
+        gCtx.arc(targetX, targetY, 26 * pulse, 0, Math.PI * 2);
+        gCtx.stroke();
+        gCtx.fillStyle = 'rgba(245, 158, 11, 0.14)';
+        gCtx.fill();
+
+        gCtx.fillStyle = '#FDE68A';
+        gCtx.font = '700 11px Rubik, sans-serif';
+        gCtx.textAlign = 'center';
+        gCtx.fillText('АЛТАН БҮС', targetX, targetY - 32);
+        gCtx.restore();
+
+        // 4. Volleyball Net
+        gCtx.fillStyle = '#94A3B8';
+        gCtx.fillRect(netX - 4, netTopY, 8, floorY - netTopY);
+        // Antenna
+        gCtx.fillStyle = '#FFFFFF';
+        gCtx.fillRect(netX - 2, netTopY - 34, 4, 34);
+        gCtx.fillStyle = '#EF4444';
+        gCtx.fillRect(netX - 2, netTopY - 34, 4, 10);
+        gCtx.fillRect(netX - 2, netTopY - 14, 4, 10);
+        // Top Tape
+        gCtx.fillStyle = '#FFFFFF';
+        gCtx.fillRect(netX - 8, netTopY, 16, 8);
+
+        // 5. Update Ball & Giraffe Physics
+        const giraffeBaseX = netX - 78;
+        if (gameState.phase === 'SETTING') {
+          gameState.cycleT += gameState.speedFactor;
+          if (gameState.cycleT >= 1.05) {
+            // Missed opportunity without pressing
+            gameState.combo = 0;
+            updateGameHud('-- км/ц');
+            gameState.cycleT = 0;
+          }
+
+          // Parabolic arc from left setter toward targetX, targetY
+          const startX = w * 0.14;
+          const startY = floorY - 55;
+          const t = gameState.cycleT;
+          gameState.ballX = startX + (targetX - startX) * (t / 0.62);
+          // Peak at t = 0.62
+          const norm = (t - 0.62) / 0.62;
+          gameState.ballY = targetY + norm * norm * (startY - targetY);
+
+          // Giraffe anticipates jump when ball nears peak
+          if (t > 0.42 && t < 0.78) {
+            const jumpProgress = Math.sin(((t - 0.42) / 0.36) * Math.PI);
+            gameState.giraffeJumpY = jumpProgress * 82;
+          } else {
+            gameState.giraffeJumpY *= 0.82;
+          }
+        } else if (gameState.phase === 'SPIKED' || gameState.phase === 'MISSED') {
+          gameState.spikedBallX += gameState.spikedBallVX;
+          gameState.spikedBallY += gameState.spikedBallVY;
+          gameState.spikedBallVY += 0.35; // gravity
+          gameState.giraffeJumpY *= 0.88;
+
+          // Bounce off floor & reset round
+          if (gameState.spikedBallY >= floorY - 16) {
+            gameState.spikedBallY = floorY - 16;
+            gameState.spikedBallVY = -gameState.spikedBallVY * 0.45;
+            if (Math.abs(gameState.spikedBallVY) < 2.2) {
+              resetGameRound();
+            }
+          } else if (gameState.spikedBallX > w + 40) {
+            resetGameRound();
+          }
+        }
+
+        // 6. Draw Giraffe Player Sprite on Canvas
+        const gX = giraffeBaseX;
+        const gY = floorY - gameState.giraffeJumpY;
+        gCtx.save();
+        gCtx.translate(gX, gY);
+
+        // Legs
+        gCtx.strokeStyle = '#F59E0B';
+        gCtx.lineWidth = 8;
+        gCtx.lineCap = 'round';
+        gCtx.beginPath();
+        gCtx.moveTo(-8, -36);
+        gCtx.lineTo(-14, 0);
+        gCtx.moveTo(8, -36);
+        gCtx.lineTo(14, 0);
+        gCtx.stroke();
+
+        // #1 Jersey Torso
+        gCtx.fillStyle = '#0F172A';
+        gCtx.strokeStyle = '#F59E0B';
+        gCtx.lineWidth = 2;
+        gCtx.beginPath();
+        gCtx.roundRect(-16, -74, 32, 42, 8);
+        gCtx.fill();
+        gCtx.stroke();
+
+        gCtx.fillStyle = '#FBBF24';
+        gCtx.font = '900 18px Rubik, sans-serif';
+        gCtx.textAlign = 'center';
+        gCtx.fillText('1', 0, -47);
+
+        // Long Giraffe Neck & Head
+        gCtx.fillStyle = '#FBBF24';
+        gCtx.fillRect(-6, -112, 14, 40);
+        // Neck spots
+        gCtx.fillStyle = '#92400E';
+        gCtx.fillRect(-3, -102, 6, 6);
+        gCtx.fillRect(1, -90, 5, 6);
+
+        // Head
+        gCtx.fillStyle = '#FBBF24';
+        gCtx.beginPath();
+        gCtx.roundRect(-10, -132, 26, 22, 9);
+        gCtx.fill();
+
+        // Orange Headband
+        gCtx.fillStyle = '#EA580C';
+        gCtx.fillRect(-10, -127, 26, 5);
+
+        // Ossicones (Horns)
+        gCtx.strokeStyle = '#D97706';
+        gCtx.lineWidth = 3;
+        gCtx.beginPath();
+        gCtx.moveTo(-4, -132);
+        gCtx.lineTo(-6, -142);
+        gCtx.moveTo(8, -132);
+        gCtx.lineTo(10, -142);
+        gCtx.stroke();
+
+        // Spiking Arm
+        gCtx.strokeStyle = '#FBBF24';
+        gCtx.lineWidth = 8;
+        gCtx.beginPath();
+        gCtx.moveTo(12, -68);
+        if (gameState.phase === 'SPIKED' || gameState.giraffeJumpY > 30) {
+          gCtx.lineTo(34, -116); // Smash pose!
+        } else {
+          gCtx.lineTo(24, -52);
+        }
+        gCtx.stroke();
+        gCtx.restore();
+
+        // 7. Draw Volleyball
+        const drawBX = gameState.phase === 'SETTING' ? gameState.ballX : gameState.spikedBallX;
+        const drawBY = gameState.phase === 'SETTING' ? gameState.ballY : gameState.spikedBallY;
+
+        gCtx.save();
+        gCtx.translate(drawBX, drawBY);
+        // Trail if spiked
+        if (gameState.phase === 'SPIKED') {
+          gCtx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+          gCtx.beginPath();
+          gCtx.arc(-14, -10, 14, 0, Math.PI * 2);
+          gCtx.fill();
+        }
+        gCtx.fillStyle = '#FBBF24';
+        gCtx.strokeStyle = '#0F172A';
+        gCtx.lineWidth = 2.5;
+        gCtx.beginPath();
+        gCtx.arc(0, 0, 16, 0, Math.PI * 2);
+        gCtx.fill();
+        gCtx.stroke();
+
+        // Blue seam stripes
+        gCtx.strokeStyle = '#1D4ED8';
+        gCtx.lineWidth = 3.5;
+        gCtx.beginPath();
+        gCtx.moveTo(-14, -4);
+        gCtx.quadraticCurveTo(0, -12, 14, -4);
+        gCtx.moveTo(-13, 7);
+        gCtx.quadraticCurveTo(0, 0, 13, 7);
+        gCtx.stroke();
+        gCtx.restore();
+
+        // 8. Impact Ring & Screen Flash
+        if (gameState.impactRing && gameState.impactRing.alpha > 0) {
+          gCtx.save();
+          gCtx.strokeStyle = `rgba(254, 240, 138, ${gameState.impactRing.alpha})`;
+          gCtx.lineWidth = 4;
+          gCtx.beginPath();
+          gCtx.arc(gameState.impactRing.x, gameState.impactRing.y, gameState.impactRing.r, 0, Math.PI * 2);
+          gCtx.stroke();
+          gCtx.restore();
+          gameState.impactRing.r += 4.5;
+          gameState.impactRing.alpha -= 0.045;
+        }
+
+        if (gameState.flashAlpha > 0) {
+          gCtx.fillStyle = `rgba(255, 255, 255, ${gameState.flashAlpha})`;
+          gCtx.fillRect(0, 0, w, h);
+          gameState.flashAlpha -= 0.04;
+        }
+
+        // 9. Right-side Timing Bar Gauge
+        const gaugeX = w - 28;
+        const gaugeTop = 58;
+        const gaugeHeight = floorY - 82;
+        gCtx.fillStyle = 'rgba(15, 23, 42, 0.75)';
+        gCtx.beginPath();
+        gCtx.roundRect(gaugeX - 8, gaugeTop, 16, gaugeHeight, 8);
+        gCtx.fill();
+
+        // Sweet spot band on gauge
+        const sweetStart = gaugeTop + gaugeHeight * 0.24;
+        const sweetLen = gaugeHeight * 0.22;
+        gCtx.fillStyle = '#F59E0B';
+        gCtx.fillRect(gaugeX - 6, sweetStart, 12, sweetLen);
+
+        // Moving indicator dot
+        const ballHeightRatio = Math.max(0, Math.min(1, (drawBY - (targetY - 10)) / (floorY - targetY)));
+        const markerY = gaugeTop + gaugeHeight * (0.28 + ballHeightRatio * 0.68);
+        gCtx.fillStyle = '#FFFFFF';
+        gCtx.beginPath();
+        gCtx.arc(gaugeX, Math.max(gaugeTop + 6, Math.min(gaugeTop + gaugeHeight - 6, markerY)), 6, 0, Math.PI * 2);
+        gCtx.fill();
+
+        requestAnimationFrame(drawGameFrame);
+      }
+
+      /* ---------------------------------------------------------
+         6. INTERACTIVE BIRTHDAY CAKE & GREETING CUSTOMIZER
+      --------------------------------------------------------- */
+      const blowCandleBtn = document.getElementById('blow-candle-btn');
+      const candleFlameGroup = document.getElementById('candle-flame-group');
+      const candleHalo = document.getElementById('candle-halo');
+      const candleSmoke = document.getElementById('candle-smoke');
+      const greetingCard = document.getElementById('greeting-card');
+      const wishStatusPill = document.getElementById('wish-status-pill');
+      let isCandleBlownOut = false;
+
+      blowCandleBtn.addEventListener('click', () => {
+        if (!isCandleBlownOut) {
+          isCandleBlownOut = true;
+          candleFlameGroup.classList.add('opacity-0');
+          candleHalo.classList.add('opacity-0');
+          candleSmoke.classList.remove('hidden');
+
+          blowCandleBtn.innerHTML = '<span>🕯️ Лааг дахин асаах</span>';
+          blowCandleBtn.className = 'px-7 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/50 font-display font-bold text-sm sm:text-base transition-all inline-flex items-center gap-2 cursor-pointer';
+
+          // Illuminate and expand greeting card
+          greetingCard.classList.remove('border-amber-500/30');
+          greetingCard.classList.add('border-amber-400', 'shadow-[0_0_45px_rgba(245,158,11,0.3)]', 'scale-[1.01]');
+          wishStatusPill.textContent = '✨ Хүсэл биеллээ! Баяр хүргэе!';
+          wishStatusPill.className = 'px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-extrabold';
+
+          SoundFX.playBirthdayCelebration();
+          launchFireworksShow();
+        } else {
+          // Relight candle
+          isCandleBlownOut = false;
+          candleFlameGroup.classList.remove('opacity-0');
+          candleHalo.classList.remove('opacity-0');
+          candleSmoke.classList.add('hidden');
+
+          blowCandleBtn.innerHTML = '<span>🎂 Лааг үлээх</span>';
+          blowCandleBtn.className = 'px-8 py-4 rounded-2xl bg-gradient-to-r from-savanna-gold via-amber-400 to-savanna-orange hover:brightness-110 text-court-navy font-display font-black text-base sm:text-lg shadow-xl shadow-amber-500/25 border-b-4 border-orange-800 active:border-b-0 active:translate-y-1 transition-all inline-flex items-center gap-2.5 cursor-pointer';
+
+          greetingCard.classList.add('border-amber-500/30');
+          greetingCard.classList.remove('border-amber-400', 'shadow-[0_0_45px_rgba(245,158,11,0.3)]', 'scale-[1.01]');
+          wishStatusPill.textContent = '🕯️ Хүслээ шивнээрэй';
+          wishStatusPill.className = 'px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-xs font-bold';
+          SoundFX.playPop(580);
+        }
+      });
+
+      // Customizer Panel Logic
+      const toggleCustomizerBtn = document.getElementById('toggle-customizer-btn');
+      const customizerPanel = document.getElementById('customizer-panel');
+      const customizerChevron = document.getElementById('customizer-chevron');
+      const inputRealName = document.getElementById('input-real-name');
+      const inputAge = document.getElementById('input-age');
+      const inputCustomMsg = document.getElementById('input-custom-msg');
+      const resetCustomizerBtn = document.getElementById('reset-customizer-btn');
+
+      const greetingRecipientTitle = document.getElementById('greeting-recipient-title');
+      const greetingBodyText = document.getElementById('greeting-body-text');
+      const cakeAgeBadge = document.getElementById('cake-age-badge');
+      const cakeAgeText = document.getElementById('cake-age-text');
+
+      const DEFAULT_GREETING = greetingBodyText.textContent.trim();
+      inputCustomMsg.value = DEFAULT_GREETING;
+
+      toggleCustomizerBtn.addEventListener('click', () => {
+        const isHidden = customizerPanel.classList.contains('hidden');
+        customizerPanel.classList.toggle('hidden');
+        toggleCustomizerBtn.setAttribute('aria-expanded', String(isHidden));
+        customizerChevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+      });
+
+      function syncGreetingDisplay() {
+        const realName = inputRealName.value.trim();
+        const ageVal = inputAge.value.trim();
+        const customText = inputCustomMsg.value.trim();
+
+        if (realName) {
+          greetingRecipientTitle.textContent = `Хүндэт АНААШ (${realName})-даа төрсөн өдрийн мэнд хүргэе! 🦒✨`;
+        } else {
+          greetingRecipientTitle.textContent = 'Хүндэт АНААШ-даа төрсөн өдрийн мэнд хүргэе! 🦒✨';
+        }
+
+        if (ageVal && Number(ageVal) > 0) {
+          cakeAgeBadge.classList.remove('hidden');
+          cakeAgeText.textContent = `${ageVal} НАСНЫ ОЙН БАЯР`;
+        } else {
+          cakeAgeBadge.classList.add('hidden');
+        }
+
+        greetingBodyText.textContent = customText || DEFAULT_GREETING;
+      }
+
+      inputRealName.addEventListener('input', syncGreetingDisplay);
+      inputAge.addEventListener('input', syncGreetingDisplay);
+      inputCustomMsg.addEventListener('input', syncGreetingDisplay);
+
+      resetCustomizerBtn.addEventListener('click', () => {
+        inputRealName.value = '';
+        inputAge.value = '';
+        inputCustomMsg.value = DEFAULT_GREETING;
+        syncGreetingDisplay();
+        SoundFX.playPop(460);
+      });
+
+      /* ---------------------------------------------------------
+         7. START ANIMATION LOOPS ON WINDOW LOAD
+      --------------------------------------------------------- */
+      window.onload = function () {
+        resizeFxCanvas();
+        initAmbientConfetti();
+        updateAndDrawFx();
+
+        resizeGameCanvas();
+        drawGameFrame();
+      };
+    })();
+  </script>
+</body>
+</html>
